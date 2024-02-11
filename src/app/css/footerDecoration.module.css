@@ -1,0 +1,152 @@
+.container {
+  background: rgb(132, 176, 177);
+  background: -moz-linear-gradient(
+    135deg,
+    rgba(132, 176, 177, 1) 15%,
+    rgba(177, 215, 194, 1) 31%,
+    rgba(111, 117, 172, 1) 87%
+  );
+  background: -webkit-linear-gradient(
+    135deg,
+    rgba(132, 176, 177, 1) 15%,
+    rgba(177, 215, 194, 1) 31%,
+    rgba(111, 117, 172, 1) 87%
+  );
+  background: linear-gradient(
+    135deg,
+    rgba(132, 176, 177, 1) 15%,
+    rgba(177, 215, 194, 1) 31%,
+    rgba(111, 117, 172, 1) 87%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#84b0b1",endColorstr="#6f75ac",GradientType=1);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.innerContainer {
+  padding: 2rem;
+  padding-left: 0;
+  display: inline-block;
+  animation: moveDeco 40000ms infinite linear;
+}
+
+@keyframes moveDeco {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.container p {
+  margin: 0 2rem;
+}
+
+.container p,
+.container i {
+  text-align: center;
+  display: inline-block;
+  line-height: 200px;
+  margin: 0;
+  font-size: 8rem;
+  font-weight: 400;
+
+  /* Font Smooth */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container span {
+  font-weight: 600;
+  font-style: italic;
+
+  /* Font Smooth */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container i {
+  padding: 0 2rem;
+}
+
+.container i:last-child {
+  padding-right: 0;
+}
+
+.container i svg {
+  vertical-align: middle;
+}
+
+@media only screen and (max-width: 1000px) {
+  .innerContainer {
+    padding: 1rem;
+  }
+
+  .container p,
+  .container i {
+    line-height: 115px;
+    font-size: 5rem;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .innerContainer {
+    padding: 1.8rem;
+  }
+
+  .container p {
+    margin: 0 1.2rem;
+  }
+
+  .container p,
+  .container i {
+    line-height: 115px;
+    font-size: 4rem;
+  }
+
+  .container i {
+    padding: 0 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .innerContainer {
+    padding: 1.4rem;
+  }
+
+  .container p {
+    margin: 0 1rem;
+  }
+
+  .container p,
+  .container i {
+    line-height: 95px;
+    font-size: 3.5rem;
+  }
+
+  .container i {
+    padding: 0 1rem;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .innerContainer {
+    padding: 1rem;
+  }
+
+  .container p {
+    margin: 0 0.8rem;
+  }
+
+  .container p,
+  .container i {
+    line-height: 75px;
+    font-size: 2.5rem;
+  }
+
+  .container i {
+    padding: 0 0.8rem;
+  }
+}

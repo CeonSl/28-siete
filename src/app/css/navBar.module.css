@@ -1,0 +1,39 @@
+.containerItems {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  margin: 0;
+  padding: 1rem;
+  padding-bottom: 0;
+  padding-left: 0;
+  font-size: var(--fontSizeSmall);
+  font-weight: 600;
+  letter-spacing: var(--letterSpacing);
+
+  /* Font Smooth */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.containerItems li a {
+  text-decoration: none;
+  color: #000000;
+  transition: all 0.2s ease-in-out;
+
+  /* Font Smooth */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.containerItems li a:hover {
+  color: #666666;
+}
+
+@media only screen and (max-width: 900px) {
+  .containerItems {
+    font-size: var(--fontSizeVerySmall);
+    padding: 0.7rem;
+    padding-bottom: 0;
+    padding-left: 0;
+  }
+}

@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import avonProject from "../../../public/images/AvonSlider.webp"
 import beePlanerProject from "../../../public/images/beePlanerSlider.webp"
 import coesProject from "../../../public/images/coesSlider.webp"
@@ -10,21 +10,21 @@ import ArrowLeftSlider from './arrowLeftSlider'
 import ArrowRightSlider from './arrowRightSlider'
 import useHandleMoveLeft from './hooks/useHandleMoveLeft'
 import useHandleMoveRight from './hooks/useHandleMoveRight'
-import useHandleAutoMoving from './hooks/useHandleAutoMoving'
 import AvonProjectSmall from "../../../public/images/AvonSliderSmall.webp"
 import coesProjectSmall from "../../../public/images/coesSliderSmall.webp"
 import ohProjectSmall from "../../../public/images/tarjetaoh3Small.webp"
 import beePlanerProjectSmall from "../../../public/images/beePlanerSliderSmall.webp"
-import { FIRST_IMAGE_VALUE, FOURTH_IMAGE_VALUE, SECOND_IMAGE_VALUE, THIRD_IMAGE_VALUE } from '../constants'
+import { FIRST_IMAGE_VALUE, LAST_IMAGE_VALUE, SECOND_IMAGE_VALUE, THIRD_IMAGE_VALUE } from '../constants'
 import useAutoMovingEffect from './hooks/useAutoMovingEffect'
 import useHandleInterval from './hooks/useHandleInterval'
+import { quantityToMove } from './logic/quantityToMove'
+import { getTransformValue } from './logic/getTransformValue'
 
 function Slider() {
 
     const sliderRef = useRef<HTMLDivElement>(null)
     const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-    const MAX_VALUE_IN_PERCENTAGE = 100
-    const LAST_IMAGE_VALUE = 300
+
     const [isDragStart, setIsDragStart] = useState<boolean>(false)
     const [prevPageX, setPrevPageX] = useState<number>(0)
     const [prevTransformValue, setPrevTransformValue] = useState<number>(0)
@@ -38,29 +38,17 @@ function Slider() {
     const dragStart = (e: any) => {
         setIsDragStart(true)
         if (sliderRef.current) {
-            const maxWidth = sliderRef.current.offsetWidth
-            const positionX = e.pageX || e.touches[0].pageX
-            const positionInPercentage = (positionX / maxWidth) * MAX_VALUE_IN_PERCENTAGE
-            const clampedPercentage = Math.min(positionInPercentage, MAX_VALUE_IN_PERCENTAGE)
-
+            const clampedPercentage = quantityToMove({ sliderRef, e })
             setPrevPageX(clampedPercentage)
 
             if (sliderRef.current.style.transform) {
-                const currentValueTransform = sliderRef.current.style.transform
-                const separateByPercentSign = currentValueTransform.split("%")[0]
-                const numberValueTransform = separateByPercentSign.split("(")[1]
-                const valueTransform = parseInt(numberValueTransform)
-                const absoluteValueTransform = Math.abs(valueTransform)
-
-                console.log(prevTransformValue);
-                console.log(absoluteValueTransform);
+                const absoluteValueTransform = getTransformValue(sliderRef)
 
                 if (absoluteValueTransform < LAST_IMAGE_VALUE) {
                     setPrevTransformValue(absoluteValueTransform)
                 } else if (absoluteValueTransform >= LAST_IMAGE_VALUE) {
                     setPrevTransformValue(LAST_IMAGE_VALUE)
                 }
-
             }
 
         }
@@ -68,22 +56,21 @@ function Slider() {
 
     const draggable = (e: any) => {
         if (!isDragStart) return
+
         if (sliderRef.current) {
-            const maxWidth = sliderRef.current.offsetWidth
-            const moveValue = ((e.pageX || e.touches[0].pageX) / maxWidth) * 100
-            const clampedPercentage = Math.min(moveValue, 100)
+            const clampedPercentage = quantityToMove({ sliderRef, e })
+            let completeMovement
             if (clampedPercentage > prevPageX && prevTransformValue != 0) {
                 const sendMovement = clampedPercentage - prevPageX
-                const completeMovement = Math.abs(prevTransformValue) - sendMovement
-                sliderRef.current.style.transform = `translateX(-${completeMovement}%)`
-            } else if (prevPageX > clampedPercentage && Math.abs(prevTransformValue) < 300) {
+                completeMovement = prevTransformValue - sendMovement
+            } else if (prevPageX > clampedPercentage && prevTransformValue < LAST_IMAGE_VALUE) {
                 const sendMovement = prevPageX - clampedPercentage
-                let completeMovement = Math.abs(prevTransformValue) + sendMovement
-                if (completeMovement > 300) {
-                    completeMovement = 300
+                completeMovement = prevTransformValue + sendMovement
+                if (completeMovement > LAST_IMAGE_VALUE) {
+                    completeMovement = LAST_IMAGE_VALUE
                 }
-                sliderRef.current.style.transform = `translateX(-${completeMovement}%)`
             }
+            sliderRef.current.style.transform = `translateX(-${completeMovement}%)`
         }
 
         handleInterval()

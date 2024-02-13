@@ -8,7 +8,7 @@
 }
 
 .removeBackgroundWhite {
-  animation: loader 500ms forwards cubic-bezier(0.165, 0.84, 0.44, 1);
+  animation: loader 300ms forwards cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 @keyframes loader {

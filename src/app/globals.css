@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Bitter:wght@100;200;300;400;500;600;700;800;900&display=swap&subset=latin");
 :root {
   --widthImages: 100%;
   --heightContainer: 875px;
@@ -16,6 +17,7 @@ html {
   -webkit-text-size-adjust: 100%; /* 2 */
   scroll-behavior: smooth;
   scroll-padding: 40px;
+  font-family: "Bitter", serif;
 }
 
 body {

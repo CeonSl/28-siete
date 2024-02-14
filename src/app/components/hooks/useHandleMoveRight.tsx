@@ -16,7 +16,7 @@ function useHandleMoveRight({ sliderRef, intervalRef, setPrevTransformValue }: h
 
     const handleMoveRight = () => {
 
-        handleInterval()
+        handleInterval(true)
 
         if ('current' in sliderRef!) {
             const transformValue = sliderRef.current?.style.transform || '';

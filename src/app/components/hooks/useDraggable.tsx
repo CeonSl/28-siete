@@ -34,7 +34,7 @@ function useDraggable({ sliderRef, intervalRef, setPrevTransformValue, isDragSta
             sliderRef.current!.style.transform = `translateX(-${completeMovement}%)`
         }
 
-        handleInterval()
+        handleInterval(true)
     }
     return { draggable }
 }

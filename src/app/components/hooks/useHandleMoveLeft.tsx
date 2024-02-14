@@ -13,7 +13,7 @@ function useHandleMoveLeft({ sliderRef, intervalRef, setPrevTransformValue }: ha
     const { handleInterval } = useHandleInterval({ sliderRef, intervalRef, setPrevTransformValue })
 
     const handleMoveLeft = () => {
-        handleInterval()
+        handleInterval(true)
 
         if ('current' in sliderRef!) {
             const transformValue = sliderRef.current?.style.transform || '';

@@ -14,8 +14,10 @@ function useResetInterval({ sliderRef, intervalRef, setPrevTransformValue, isVis
     const { handleInterval } = useHandleInterval({ sliderRef, intervalRef, setPrevTransformValue })
 
     useEffect(() => {
-        if (!isVisible) {
-            handleInterval()
+        if (isVisible) {
+            handleInterval(false)
+        } else {
+            handleInterval(true)
         }
     }, [isVisible, handleInterval])
 }
